@@ -16,5 +16,6 @@ export default defineConfig({
 				'src/randomQuote/': resolve('src', 'randomQuote', 'index.html'),
 			},
 		},
+		target: 'esnext',
 	},
 })
