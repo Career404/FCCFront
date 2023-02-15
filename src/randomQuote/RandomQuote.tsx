@@ -1,21 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import { FaQuoteRight, FaTwitter, FaTumblr } from 'react-icons/fa'
 import './randomQuote.css'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<React.StrictMode>
+async function fetchQuoteData() {
+	const response = await fetch(
+		'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json',
+		{ method: 'GET' }
+	)
+	const result = await response.json()
+	return result
+}
+const quoteData = await fetchQuoteData()
+
+function RandomQuote({
+	quoteData: {
+		quotes: {},
+	},
+}) {
+	const [quote, setQuote] = useState({
+		quote: 'Life isn’t about getting and having, it’s about giving and being.',
+		author: 'Kevin Kruse',
+	})
+
+	function newQuote() {
+		setQuote(
+			quoteData.quotes[Math.floor(Math.random() * quoteData.quotes.length)]
+		)
+	}
+	return (
 		<div className="randomQuote">
 			<div id="quote-box">
 				<div className="quote-text">
 					<FaQuoteRight />
-					<span id="text">
-						In order to succeed, your desire for success should be greater than
-						your fear of failure.
-					</span>
+					<span id="text">{quote.quote}</span>
 				</div>
 				<div className="quote-author">
-					- <span id="author">Bill Cosby</span>
+					- <span id="author">{quote.author}</span>
 				</div>
 				<div className="buttons">
 					<a
@@ -36,11 +57,17 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 					>
 						<FaTumblr />
 					</a>
-					<button className="button" id="new-quote">
+					<button className="button" id="new-quote" onClick={newQuote}>
 						New quote
 					</button>
 				</div>
 			</div>
 		</div>
+	)
+}
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+	<React.StrictMode>
+		<RandomQuote quoteData={quoteData} />
 	</React.StrictMode>
 )
