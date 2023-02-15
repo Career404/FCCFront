@@ -13,7 +13,6 @@ async function fetchQuoteData() {
 	return result
 }
 const quoteData = await fetchQuoteData()
-
 function RandomQuote({
 	quoteData: {
 		quotes: {},
