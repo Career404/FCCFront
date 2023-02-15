@@ -43,8 +43,8 @@ function RandomQuote({
 						className="button"
 						id="tweet-quote"
 						title="Tweet this quote!"
-						target="_top"
-						href="https://twitter.com/intent/tweet?hashtags=quotes&amp;related=freecodecamp&amp;text=%22In%20order%20to%20succeed%2C%20your%20desire%20for%20success%20should%20be%20greater%20than%20your%20fear%20of%20failure.%22%20Bill%20Cosby"
+						target="_blank"
+						href="https://www.twitter.com/intent/tweet"
 					>
 						<FaTwitter />
 					</a>
