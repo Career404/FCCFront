@@ -6,7 +6,7 @@ function App() {
 		<div className="App">
 			<h1>Take a look at these pages:</h1>
 			<div className="links">
-				<a href="FCCFront/src/randomQuote/">Random quote generator</a> -{' '}
+				<a href="src/randomQuote/">Random quote generator</a> -{' '}
 				<a href="https://random-quote-machine.freecodecamp.rocks/">
 					FCC example
 				</a>
