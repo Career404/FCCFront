@@ -22,6 +22,7 @@ function RandomQuote({
 		quote: 'Life isn’t about getting and having, it’s about giving and being.',
 		author: 'Kevin Kruse',
 	})
+	useEffect(() => newQuote, [])
 
 	function newQuote() {
 		setQuote(
