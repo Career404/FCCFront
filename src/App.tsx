@@ -6,13 +6,13 @@ function App() {
 		<div className="App">
 			<h1>Take a look at these pages:</h1>
 			<div className="links">
-				<a href="src/randomQuote/">Random quote generator</a> -{' '}
+				<a href="src/randomQuote/">Random quote generator</a>{' '}
 				<a href="https://random-quote-machine.freecodecamp.rocks/">
 					FCC example
 				</a>
 			</div>
 			<div className="links">
-				<a href="src/pomodoro/">Random quote generator</a> -{' '}
+				<a href="src/pomodoro/">25 and 5 clock</a>{' '}
 				<a href="https://25--5-clock.freecodecamp.rocks/">FCC example</a>
 			</div>
 		</div>

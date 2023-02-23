@@ -1,6 +1,9 @@
-#root {
-	max-width: 1280px;
-	margin: 0;
+.App {
+	max-width: 768px;
+	margin: 0 auto;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
 }
 h1 {
 	margin-top: 50px;
@@ -12,7 +15,7 @@ h1 {
 	display: flex;
 	flex-flow: row nowrap;
 	gap: 20px;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	background-color: rgba(54, 67, 91, 0.466);
 	border-radius: 10px;
 	font-size: 1.2rem;
