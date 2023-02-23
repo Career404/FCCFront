@@ -11,6 +11,10 @@ function App() {
 					FCC example
 				</a>
 			</div>
+			<div className="links">
+				<a href="src/pomodoro/">Random quote generator</a> -{' '}
+				<a href="https://25--5-clock.freecodecamp.rocks/">FCC example</a>
+			</div>
 		</div>
 	)
 }

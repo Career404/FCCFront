@@ -14,6 +14,7 @@ export default defineConfig({
 			input: {
 				main: resolve('index.html'),
 				'src/randomQuote/': resolve('src', 'randomQuote', 'index.html'),
+				'src/pomodoro/': resolve('src', 'pomodoro', 'index.html'),
 			},
 		},
 		target: 'esnext',
