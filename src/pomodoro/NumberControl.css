@@ -1,0 +1,17 @@
+.NumberControl {
+	width: 250px;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+}
+.NumberControl .ControlTitle {
+	font-size: 1.2rem;
+}
+.NumberControl button {
+	background: none;
+	outline: none;
+	border: none;
+	color: white;
+	cursor: pointer;
+}
