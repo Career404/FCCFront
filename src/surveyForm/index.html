@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel='stylesheet' href='./index.css'>
+  </head>
+  <body>
+  <div class="wrapper">
+    <h1 id="title">Survey form</h1>
+    <p id="description">Welcome to the survey form</p>
+    <form id="survey-form">
+        <label for="name" id="name-label">Name</label><input type="text" name="name" id="name" placeholder="Enter your name" required></input>
+        <label for="email" id="email-label">Email</label><input type="email" name="email" id="email" placeholder="Enter your Email" required></input>
+        <label for="number" id="number-label">Age</label><input type="number" name="number" id="number" placeholder="Enter your age" min="0" max="150"></input>
+        <label for="rate">How would you rate your freeCodeCamp experience on a rate of 1 for terrible, 5 for awesome!?</label><select name="rate" id="dropdown"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
+        <p>Would you recommend freeCodeCamp to your friends?</p>
+          <label for="yes"><input type="radio" id="yes" name="recommend" value="true">  Would recommend</label><br>
+          <label for="yes"><input type="radio" id="null" name="recommend" value="null">  Maybe</label><br>
+          <label for="no"><input type="radio" id="no" name="recommend" value="false">  Would not recommend</label>
+          <p>What would you like to see improved? <i>(Check all that apply)</i></p>
+          <div class="flexcolumn">
+            <label for="option1"><input type="checkbox" id="option1" name="option1" value="Front-end">
+          Front-end Projects</label>
+          <label for="option2"><input type="checkbox" id="option2" name="option2" value="Back-end">
+          Back-end Projects</label>
+          <label for="option3"><input type="checkbox" id="option3" name="option3" value="Data Visualization">
+          Data Visualization</label>
+          <label for="option4"><input type="checkbox" id="option4" name="option4" value="Challenges">
+          Challenges</label>
+          <label for="option5"><input type="checkbox" id="option5" name="option5" value="Open Source Community">
+          Open Source Community</label>
+          <label for="option6"><input type="checkbox" id="option6" name="option6" value="Gitter help rooms">
+          Gitter help rooms</label>
+          <label for="option7"><input type="checkbox" id="option7" name="option7" value="Videos">
+          Videos</label>
+          <label for="option8"><input type="checkbox" id="option8" name="option8" value="City Meetups">
+          City Meetups</label>
+          <label for="option9"><input type="checkbox" id="option9" name="option9" value="Forum">
+          Forum</label>
+          <label for="option10"><input type="checkbox" id="option10" name="option10" value="Additional Courses">
+          Additional Courses</label>
+        </div>
+        <label for="comment"> Leave a comment
+          <textarea name="comments" id="comments" cols="100" rows="10"></textarea>
+        </label>
+          <input type="submit" id="submit" value="submit">
+    </form>
+    </div>
+  </body>
+</html>
