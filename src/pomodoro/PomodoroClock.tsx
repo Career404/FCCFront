@@ -13,9 +13,18 @@ export default function PomodoroClock() {
 		typeof setInterval
 	> | null>(null)
 	const [isRunning, setIsRunning] = useState<boolean>(false)
+	const [testMode, setTestMode] = useState(false)
 	const beep = new Audio('/BeepSound.wav')
 
 	const timerRun = () => {
+		setTimerInterval(
+			setInterval(() => {
+				setTimeLeft((prevTimeLeft) => prevTimeLeft - 1000)
+			}, 1000)
+		)
+		setIsRunning(true)
+	}
+	const testTimerRun = () => {
 		setTimerInterval(
 			setInterval(() => {
 				setTimeLeft((prevTimeLeft) => prevTimeLeft - 1000)
@@ -50,7 +59,7 @@ export default function PomodoroClock() {
 		)
 		setTimeout(() => beep.pause(), 1000)
 		setIsSession(!isSession)
-		timerRun()
+		!testMode ? timerRun() : testTimerRun()
 	}
 	const formatTime = (time: number): string => {
 		const minutes = Math.floor(time / 60000)
@@ -74,15 +83,16 @@ export default function PomodoroClock() {
 	}, [sessionLength, breakLength])
 
 	useEffect(() => {
-		console.log('session: ' + isSession)
 		if (!isSession && isRunning) {
 			timerPause()
 			setTimeLeft(breakLength * 60 * 1000)
-			timerRun()
+
+			!testMode ? timerRun() : testTimerRun()
 		} else if (isSession && isRunning) {
 			timerPause()
 			setTimeLeft(sessionLength * 60 * 1000)
-			timerRun()
+
+			!testMode ? timerRun() : testTimerRun()
 		} else
 			isSession
 				? setTimeLeft(sessionLength * 60 * 1000)
@@ -122,7 +132,9 @@ export default function PomodoroClock() {
 			<div className="timer-control">
 				<button
 					id="start_stop"
-					onClick={() => (isRunning ? timerPause() : timerRun())}
+					onClick={() =>
+						isRunning ? timerPause() : !testMode ? timerRun() : testTimerRun()
+					}
 				>
 					<FiPlay />
 					<FiPause />
@@ -132,6 +144,16 @@ export default function PomodoroClock() {
 					<FiRefreshCw />
 				</button>
 			</div>
+			<label htmlFor="testMode">
+				Enable test mode (10x faster time)
+				<input
+					type="checkbox"
+					style={{ margin: '25px', scale: '2' }}
+					id="testMode"
+					onChange={() => setTestMode(!testMode)}
+					checked={testMode}
+				></input>
+			</label>
 		</div>
 	)
 }
