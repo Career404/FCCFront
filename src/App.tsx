@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 
 function App() {
@@ -23,7 +22,7 @@ function App() {
 			</p>
 			<div className="links">
 				<a href="src/JSProjects/">
-					Palindrome Checker, Roman Numeral Converter Caesars Cipher, Telephone
+					Palindrome Checker, Roman Numeral Converter, Caesars Cipher, Telephone
 					Number Validator, Cash Register
 				</a>{' '}
 				<a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/">
