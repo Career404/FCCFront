@@ -233,9 +233,183 @@ function RomanNumeralConverter() {
 }
 
 function CaesarsCipher() {
+	const secretWordsArray = [
+		'classified',
+		'covert',
+		'furtive',
+		'hush-hush',
+		'mysterious',
+		'obscure',
+		'private',
+		'secluded',
+		'undercover',
+		'underground',
+		'undisclosed',
+		'unknown',
+		'unpublished',
+		'backdoor',
+		'close',
+		'closet',
+		'dark',
+		'deep',
+		'mystic',
+		'occult',
+		'unseen',
+		'abstruse',
+		'ambiguous',
+		'arcane',
+		'camouflaged',
+		'cloak-and-dagger',
+		'clouded',
+		'conspiratorial',
+		'covered',
+		'cryptic',
+		'disguised',
+		'enigmatical',
+		'esoteric',
+		'mystical',
+		'on the Q.T.',
+		'out-of-the-way',
+		'recondite',
+		'reticent',
+		'retired',
+		'shrouded',
+		'strange',
+		'under wraps',
+		'unenlightened',
+		'unfrequented',
+		'unintelligible',
+		'veiled',
+	]
+	const [currentString, setCurrentString] = useState(
+		'The quick brown fox jumps over the lazy dog'
+	)
+	const [currentCode, setCurrentCode] = useState(
+		'GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT'
+	)
+
+	function encodeRot13(str: string) {
+		let encoded = ''
+		for (let i = 0; i < str.length; i++) {
+			let charCode = str.charCodeAt(i)
+			if (charCode >= 65 && charCode <= 90) {
+				charCode -= 65
+				charCode = (charCode + 13) % 26
+				charCode += 65
+			} else if (charCode >= 97 && charCode <= 122) {
+				charCode -= 97
+				charCode = (charCode + 13) % 26
+				charCode += 97
+			}
+			encoded += String.fromCharCode(charCode)
+		}
+		return encoded.toUpperCase()
+	}
+
+	function rot13(str: string) {
+		let decoded = ''
+		for (let i = 0; i < str.length; i++) {
+			let charCode = str.charCodeAt(i)
+			if (charCode >= 65 && charCode <= 90) {
+				charCode -= 65
+				charCode = (charCode + 13) % 26
+				charCode += 65
+			}
+			decoded += String.fromCharCode(charCode)
+		}
+		return decoded
+	}
+
 	return (
 		<>
-			<p>Hello Caesars Cipher </p>
+			<div className="glass">
+				<input
+					className="darkTextInput"
+					type="text"
+					value={currentString}
+					onChange={(e) => {
+						setCurrentString(e.target.value)
+					}}
+				/>{' '}
+				<FaRandom
+					style={{ cursor: 'pointer' }}
+					size={'30px'}
+					onClick={() =>
+						setCurrentString(
+							secretWordsArray[
+								Math.floor(Math.random() * secretWordsArray.length)
+							]
+						)
+					}
+				/>
+				<br />
+				{currentString !== null ? <h3>{encodeRot13(currentString)}</h3> : null}
+				<input
+					className="darkTextInput"
+					type="text"
+					value={currentCode}
+					onChange={(e) => {
+						setCurrentCode(e.target.value)
+					}}
+				/>{' '}
+				<FaRandom
+					style={{ cursor: 'pointer' }}
+					size={'30px'}
+					onClick={() =>
+						setCurrentCode(
+							encodeRot13(
+								secretWordsArray[
+									Math.floor(Math.random() * secretWordsArray.length)
+								]
+							)
+						)
+					}
+				/>
+				{currentCode !== null ? <h3>{rot13(currentCode)}</h3> : null}
+			</div>
+			<div className="glass">
+				<h4>
+					<small>This is the </small>Task
+				</h4>
+				<p>
+					One of the simplest and most widely known ciphers is a Caesar cipher,
+					also known as a shift cipher. In a shift cipher the meanings of the
+					letters are shifted by some set amount.
+					<br />
+					<br />
+					A common modern use is the ROT13 cipher, where the values of the
+					letters are shifted by 13 places. Thus A ↔ N, B ↔ O and so on.
+					<br />
+					<br />
+					Write a function which takes a ROT13 encoded string as input and
+					returns a decoded string.
+					<br />
+					<br />
+					All letters will be uppercase. Do not transform any non-alphabetic
+					character (i.e. spaces, punctuation), but do pass them on.
+				</p>
+			</div>
+			<div className="glass">
+				<h4>
+					<small>This is the </small>solution
+				</h4>
+				<SyntaxHighlighter language="JavaScript" style={a11yDark}>
+					{`function rot13(str) {
+     let decoded = '';
+    for (let i = 0; i < str.length; i++) {
+        let charCode = str.charCodeAt(i);
+        if (charCode >= 65 && charCode <= 90) {
+            charCode -= 65;
+            charCode = (charCode + 13) % 26;
+            charCode += 65;
+        }
+        decoded += String.fromCharCode(charCode);
+    }
+    return decoded;
+}
+`}
+				</SyntaxHighlighter>
+			</div>
 		</>
 	)
 }
@@ -257,7 +431,7 @@ function CashRegister() {
 }
 
 function JSProjects() {
-	const [currentWindow, setCurrentWindow] = useState('introduction')
+	const [currentWindow, setCurrentWindow] = useState('CaesarsCipher') //introduction
 	return (
 		<>
 			<nav className="Navbar">
