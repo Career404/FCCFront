@@ -132,3 +132,24 @@ main.Main .darkTextInput {
 	background-color: black;
 	font-size: 40px;
 }
+main.Main .romanNumeralEx {
+	padding-left: 20%;
+	display: flex;
+	flex-flow: row nowrap;
+	gap: 20%;
+	align-items: center;
+}
+main.Main .romanNumeralEx p {
+	font-size: 2rem;
+	max-width: 50%;
+}
+main.Main .darkNumInput {
+	height: 70px;
+	width: 150px;
+	padding-left: 10px;
+	border-radius: 15px;
+	background-color: black;
+	color: white;
+	font-size: 2rem;
+	line-height: 70px;
+}

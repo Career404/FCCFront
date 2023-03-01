@@ -138,9 +138,96 @@ function PalindromeChecker() {
 }
 
 function RomanNumeralConverter() {
+	const [currentNumber, setCurrentNumber] = useState(49)
+
+	function convertToRoman(num: number) {
+		if (num > 99999) {
+			return 'This can significantly hinder performance... Please use smaller numbers'
+		}
+		let roman = ''
+		const lookup: { [key: string]: number } = {
+			M: 1000,
+			CM: 900,
+			D: 500,
+			CD: 400,
+			C: 100,
+			XC: 90,
+			L: 50,
+			XL: 40,
+			X: 10,
+			IX: 9,
+			V: 5,
+			IV: 4,
+			I: 1,
+		}
+		for (const key in lookup) {
+			while (num >= lookup[key]) {
+				roman += key
+				num -= lookup[key]
+			}
+		}
+		return roman
+	}
 	return (
 		<>
-			<p>Hello Roman Numeral Converter</p>
+			<div className="glass romanNumeralEx">
+				<input
+					className="darkNumInput"
+					type="number"
+					value={currentNumber}
+					min={1}
+					max={99999}
+					onChange={(e) => {
+						setCurrentNumber(Number(e.target.value))
+					}}
+				/>
+				<br />
+				{currentNumber !== null ? <p>{convertToRoman(currentNumber)}</p> : null}
+			</div>
+			<div className="glass">
+				<h4>
+					<small>This is the </small>Task
+				</h4>
+				<p>
+					Convert the given number into a roman numeral.
+					<br />
+					<br />
+					All roman numerals answers should be provided in upper-case.
+				</p>
+			</div>
+			<div className="glass">
+				<h4>
+					<small>This is the </small>solution
+				</h4>
+				<SyntaxHighlighter language="JavaScript" style={a11yDark}>
+					{`function convertToRoman(num) {
+    let roman = '';
+    const lookup = {
+        M: 1000,
+        CM: 900,
+        D: 500,
+        CD: 400,
+        C: 100,
+        XC: 90,
+        L: 50,
+        XL: 40,
+        X: 10,
+        IX: 9,
+        V: 5,
+        IV: 4,
+        I: 1
+    };
+    for (const key in lookup) {
+        while (num >= lookup[key]) {
+            roman += key;
+            num -= lookup[key];
+        }
+    }
+    return roman;
+}
+`}
+				</SyntaxHighlighter>
+			</div>
 		</>
 	)
 }
