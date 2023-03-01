@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
+import { FaRandom, FaAsterisk } from 'react-icons/fa'
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript'
 import a11yDark from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark'
@@ -16,6 +17,19 @@ function PalindromeChecker() {
 		'Murder for a jar of red rum',
 		'Madam, in Eden, I’m Adam',
 		'Borrow or rob',
+		'Amore, Roma',
+		'A nut for a jar of tuna.',
+		'Step on no pets.',
+		'Eva, can I see bees in a cave?',
+		'Sit on a potato pan, Otis',
+		'sator arepo tenet opera rotas',
+		'Poor Dan is in a droop',
+		'Ned, I am a maiden',
+		'Now, sir, a war is won!',
+		'A man, a plan, a canal, Panama!',
+		'Won’t lovers revolt now?',
+		'Red roses run no risk, sir, on Nurse’s order',
+		'Never odd or even',
 	]
 	const [currentString, setCurrentString] = useState(
 		palindromeList[Math.floor(Math.random() * palindromeList.length)]
@@ -39,6 +53,17 @@ function PalindromeChecker() {
 		return 'is NOT a palindrome'
 	}
 
+	function randomString() {
+		const chars =
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+		const stringLength = Math.floor(Math.random() * 10) + 8
+		let result = ''
+		for (let i = 0; i < stringLength; i++) {
+			result += chars.charAt(Math.floor(Math.random() * chars.length))
+		}
+		return result
+	}
+
 	return (
 		<>
 			<div className="glass">
@@ -49,6 +74,20 @@ function PalindromeChecker() {
 					onChange={(e) => {
 						setCurrentString(e.target.value)
 					}}
+				/>{' '}
+				<FaRandom
+					style={{ cursor: 'pointer' }}
+					size={'30px'}
+					onClick={() =>
+						setCurrentString(
+							palindromeList[Math.floor(Math.random() * palindromeList.length)]
+						)
+					}
+				/>{' '}
+				<FaAsterisk
+					style={{ cursor: 'pointer' }}
+					size={'30px'}
+					onClick={() => setCurrentString(randomString())}
 				/>
 				<br />
 				{currentString !== null ? (
@@ -131,7 +170,7 @@ function CashRegister() {
 }
 
 function JSProjects() {
-	const [currentWindow, setCurrentWindow] = useState('intro')
+	const [currentWindow, setCurrentWindow] = useState('introduction')
 	return (
 		<>
 			<nav className="Navbar">
@@ -145,6 +184,7 @@ function JSProjects() {
 							className="slct"
 							onChange={(e) => setCurrentWindow(e.target.value)}
 						>
+							<option value="introduction">Hello, friend</option>
 							<option value="PalindromeChecker">Palindrome Checker</option>
 							<option value="RomanNumeralConverter">
 								Roman Numeral Converter
@@ -160,7 +200,7 @@ function JSProjects() {
 			</nav>
 
 			<main className="Main">
-				{currentWindow === 'intro' ? (
+				{currentWindow === 'introduction' ? (
 					<div>
 						<h3>Hello there</h3>{' '}
 						<p>
