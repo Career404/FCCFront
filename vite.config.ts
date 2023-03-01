@@ -13,9 +13,10 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				main: resolve('index.html'),
-				'randomQuote/': resolve('src', 'randomQuote', 'index.html'),
-				'pomodoro/': resolve('src', 'pomodoro', 'index.html'),
-				'surveyForm/': resolve('src', 'surveyForm', 'index.html'),
+				'src/randomQuote': resolve('src', 'randomQuote', 'index.html'),
+				'src/pomodoro': resolve('src', 'pomodoro', 'index.html'),
+				'src/surveyForm': resolve('src', 'surveyForm', 'index.html'),
+				'src/tribute': resolve('src', 'tribute', 'index.html'),
 			},
 		},
 		target: 'esnext',
