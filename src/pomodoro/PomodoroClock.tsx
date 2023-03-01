@@ -13,7 +13,8 @@ export default function PomodoroClock() {
 		typeof setInterval
 	> | null>(null)
 	const [isRunning, setIsRunning] = useState<boolean>(false)
-	const [testMode, setTestMode] = useState(false)
+	const [timeBenderMode, setTimeBenderMode] = useState(false)
+	const [timeFactor, setTimeFactor] = useState(10)
 	const beep = new Audio('/BeepSound.wav')
 
 	const timerRun = () => {
@@ -28,7 +29,7 @@ export default function PomodoroClock() {
 		setTimerInterval(
 			setInterval(() => {
 				setTimeLeft((prevTimeLeft) => prevTimeLeft - 1000)
-			}, 100)
+			}, 1000 / Number(timeFactor))
 		)
 		setIsRunning(true)
 	}
@@ -59,7 +60,7 @@ export default function PomodoroClock() {
 		)
 		setTimeout(() => beep.pause(), 1000)
 		setIsSession(!isSession)
-		!testMode ? timerRun() : testTimerRun()
+		!timeBenderMode ? timerRun() : testTimerRun()
 	}
 	const formatTime = (time: number): string => {
 		const minutes = Math.floor(time / 60000)
@@ -87,12 +88,12 @@ export default function PomodoroClock() {
 			timerPause()
 			setTimeLeft(breakLength * 60 * 1000)
 
-			!testMode ? timerRun() : testTimerRun()
+			!timeBenderMode ? timerRun() : testTimerRun()
 		} else if (isSession && isRunning) {
 			timerPause()
 			setTimeLeft(sessionLength * 60 * 1000)
 
-			!testMode ? timerRun() : testTimerRun()
+			!timeBenderMode ? timerRun() : testTimerRun()
 		} else
 			isSession
 				? setTimeLeft(sessionLength * 60 * 1000)
@@ -133,7 +134,11 @@ export default function PomodoroClock() {
 				<button
 					id="start_stop"
 					onClick={() =>
-						isRunning ? timerPause() : !testMode ? timerRun() : testTimerRun()
+						isRunning
+							? timerPause()
+							: !timeBenderMode
+							? timerRun()
+							: testTimerRun()
 					}
 				>
 					<FiPlay />
@@ -144,16 +149,35 @@ export default function PomodoroClock() {
 					<FiRefreshCw />
 				</button>
 			</div>
-			<label htmlFor="testMode">
-				Enable test mode (10x faster time)
+			<label htmlFor="timeBenderMode">
+				Enable test mode (
+				<input
+					style={{
+						width: '75px',
+						height: '30px',
+						position: 'relative',
+						backgroundColor: 'transparent',
+						fontSize: '1em',
+						color: 'white',
+					}}
+					type="number"
+					name="TimeFactor"
+					id="timeFactor"
+					value={Number(timeFactor)}
+					min="1"
+					onChange={(e) => setTimeFactor(Number(e.target.value))}
+				/>
+				x faster time)
 				<input
 					type="checkbox"
 					style={{ margin: '25px', scale: '2' }}
-					id="testMode"
-					onChange={() => setTestMode(!testMode)}
-					checked={testMode}
-				></input>
+					id="timeBenderMode"
+					onChange={() => setTimeBenderMode(!timeBenderMode)}
+					checked={timeBenderMode}
+				></input>{' '}
+				<br />
 			</label>
+			<p></p>
 		</div>
 	)
 }
