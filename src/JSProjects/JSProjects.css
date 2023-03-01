@@ -21,6 +21,7 @@ body {
 		#939397 100%
 	);
 	background-size: 400% 100%;
+	background-attachment: fixed;
 	animation: gradient 15s ease infinite;
 }
 
@@ -48,7 +49,6 @@ div.glass {
 }
 
 nav.Navbar {
-	height: 90px;
 	margin: 1rem;
 	display: flex;
 	flex-flow: row wrap;
@@ -133,15 +133,15 @@ main.Main .darkTextInput {
 	font-size: 40px;
 }
 main.Main .romanNumeralEx {
-	padding-left: 20%;
+	padding-left: 10%;
 	display: flex;
 	flex-flow: row nowrap;
-	gap: 20%;
+	gap: 10%;
 	align-items: center;
 }
 main.Main .romanNumeralEx p {
 	font-size: 2rem;
-	max-width: 50%;
+	overflow: auto;
 }
 main.Main .darkNumInput {
 	height: 70px;
@@ -152,4 +152,18 @@ main.Main .darkNumInput {
 	color: white;
 	font-size: 2rem;
 	line-height: 70px;
+}
+
+@media only screen and (max-width: 767px) {
+	nav.Navbar {
+		gap: 10px;
+	}
+	input[type='text'],
+	input[type='number'] {
+		font-size: 0.8rem;
+	}
+	main.Main .romanNumeralEx {
+		padding-left: 1%;
+		flex-flow: row wrap;
+	}
 }
