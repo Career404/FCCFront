@@ -233,6 +233,12 @@ function RomanNumeralConverter() {
 }
 
 function CaesarsCipher() {
+	const [currentString, setCurrentString] = useState(
+		'The quick brown fox jumps over the lazy dog'
+	)
+	const [currentCode, setCurrentCode] = useState(
+		'GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT'
+	)
 	const secretWordsArray = [
 		'classified',
 		'covert',
@@ -281,12 +287,6 @@ function CaesarsCipher() {
 		'unintelligible',
 		'veiled',
 	]
-	const [currentString, setCurrentString] = useState(
-		'The quick brown fox jumps over the lazy dog'
-	)
-	const [currentCode, setCurrentCode] = useState(
-		'GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT'
-	)
 
 	function encodeRot13(str: string) {
 		let encoded = ''
@@ -305,7 +305,6 @@ function CaesarsCipher() {
 		}
 		return encoded.toUpperCase()
 	}
-
 	function rot13(str: string) {
 		let decoded = ''
 		for (let i = 0; i < str.length; i++) {
@@ -319,7 +318,6 @@ function CaesarsCipher() {
 		}
 		return decoded
 	}
-
 	return (
 		<>
 			<div className="glass">
@@ -431,7 +429,7 @@ function CashRegister() {
 }
 
 function JSProjects() {
-	const [currentWindow, setCurrentWindow] = useState('CaesarsCipher') //introduction
+	const [currentWindow, setCurrentWindow] = useState('introduction') //introduction
 	return (
 		<>
 			<nav className="Navbar">

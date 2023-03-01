@@ -22,6 +22,7 @@ h1 {
 }
 .links a {
 	text-decoration: unset;
+	min-width: 120px;
 }
 .links a:hover {
 	color: cornflowerblue;
