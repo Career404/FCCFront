@@ -15,6 +15,7 @@ export default defineConfig({
 				main: resolve('index.html'),
 				'src/randomQuote': resolve('src', 'randomQuote', 'index.html'),
 				'src/pomodoro': resolve('src', 'pomodoro', 'index.html'),
+				'src/JSProjects': resolve('src', 'JSProjects', 'index.html'),
 				'src/surveyForm': resolve('src', 'surveyForm', 'index.html'),
 				'src/tribute': resolve('src', 'tribute', 'index.html'),
 			},
