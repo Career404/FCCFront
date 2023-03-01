@@ -7,7 +7,7 @@ import a11yDark from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark'
 
 import './JSProjects.css'
 
-SyntaxHighlighter.registerLanguage('JavaScript', js)
+SyntaxHighlighter.registerLanguage('javascript', js)
 
 function PalindromeChecker() {
 	const palindromeList = [
@@ -38,7 +38,6 @@ function PalindromeChecker() {
 	function checkPalindrome(str: string): string {
 		let lowStr = str.toLowerCase()
 		let strArr = lowStr.match(/[a-z0-9]/gi)
-		console.log(strArr)
 		if (strArr == null) {
 			return (
 				'is just an empty field. Did you mean ' +
@@ -46,7 +45,6 @@ function PalindromeChecker() {
 			)
 		}
 		let reverseStrArr = strArr.slice().reverse()
-		console.log(reverseStrArr)
 		if (strArr.join() === reverseStrArr.join()) {
 			return 'is a palindrome'
 		}
@@ -55,7 +53,7 @@ function PalindromeChecker() {
 
 	function randomString() {
 		const chars =
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~`|}{[]\\:;?><,./-='
 		const stringLength = Math.floor(Math.random() * 10) + 8
 		let result = ''
 		for (let i = 0; i < stringLength; i++) {
@@ -118,7 +116,7 @@ function PalindromeChecker() {
 				<h4>
 					<small>This is the </small>solution
 				</h4>
-				<SyntaxHighlighter language="JavaScript" style={a11yDark}>
+				<SyntaxHighlighter language="javascript" style={a11yDark}>
 					{`function palindrome(str) {
   let lowStr = str.toLowerCase();
   let strArr = lowStr.match(/[a-z0-9]/gi)
@@ -199,7 +197,7 @@ function RomanNumeralConverter() {
 				<h4>
 					<small>This is the </small>solution
 				</h4>
-				<SyntaxHighlighter language="JavaScript" style={a11yDark}>
+				<SyntaxHighlighter language="javascript" style={a11yDark}>
 					{`function convertToRoman(num) {
     let roman = '';
     const lookup = {
@@ -391,7 +389,7 @@ function CaesarsCipher() {
 				<h4>
 					<small>This is the </small>solution
 				</h4>
-				<SyntaxHighlighter language="JavaScript" style={a11yDark}>
+				<SyntaxHighlighter language="javascript" style={a11yDark}>
 					{`function rot13(str) {
      let decoded = '';
     for (let i = 0; i < str.length; i++) {
