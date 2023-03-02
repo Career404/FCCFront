@@ -411,9 +411,108 @@ function CaesarsCipher() {
 }
 
 function TelephoneNumberValidator() {
+	const numbersList = [
+		'555-555-5555',
+		'(555)555-5555',
+		'(555) 555-5555',
+		'555 555 5555',
+		'5555555555',
+		'1 555 555 5555',
+	]
+	const [currentString, setCurrentString] = useState(
+		numbersList[Math.floor(Math.random() * numbersList.length)]
+	)
+
+	function telephoneCheck(str: string) {
+		const regex = /^(1\s?)?(\(\d{3}\)|\d{3})[\s-]?\d{3}[\s-]?\d{4}$/
+		return regex.test(str)
+	}
+
+	function randomString() {
+		const chars = '0123456789()-'
+		let result = ''
+		for (let i = 0; i < 10; i++) {
+			result += chars.charAt(Math.floor(Math.random() * chars.length))
+		}
+		return result
+	}
+
 	return (
 		<>
-			<p>Hello Telephone Number </p>
+			<div className="glass">
+				<input
+					className="darkTextInput"
+					type="text"
+					value={currentString}
+					onChange={(e) => {
+						setCurrentString(e.target.value)
+					}}
+				/>{' '}
+				<FaRandom
+					style={{ cursor: 'pointer' }}
+					size={'30px'}
+					onClick={() =>
+						setCurrentString(
+							numbersList[Math.floor(Math.random() * numbersList.length)]
+						)
+					}
+				/>{' '}
+				<FaAsterisk
+					style={{ cursor: 'pointer' }}
+					size={'30px'}
+					onClick={() => setCurrentString(randomString())}
+				/>
+				<br />
+				{currentString !== null ? (
+					<h3>
+						{telephoneCheck(currentString)
+							? '...is a valid number'
+							: 'is not a valid number'}
+					</h3>
+				) : null}
+			</div>
+			<div className="glass">
+				<h4>
+					<small>This is the </small>Task
+				</h4>
+				<p>
+					Return true if the passed string looks like a valid US phone number.{' '}
+					<br /> <br />
+					The user may fill out the form field any way they choose as long as it
+					has the format of a valid US number. The following are examples of
+					valid formats for US numbers (refer to the tests below for other
+					variants):
+					<pre>
+						555-555-5555
+						<br />
+						(555)555-5555
+						<br />
+						(555) 555-5555
+						<br />
+						555 555 5555
+						<br />
+						5555555555
+						<br />1 555 555 5555
+					</pre>
+					For this challenge you will be presented with a string such as
+					800-692-7753 or 8oo-six427676;laskdjf. Your job is to validate or
+					reject the US phone number based on any combination of the formats
+					provided above. The area code is required. If the country code is
+					provided, you must confirm that the country code is 1. Return true if
+					the string is a valid US phone number; otherwise return false.
+				</p>
+			</div>
+			<div className="glass">
+				<h4>
+					<small>This is the </small>solution
+				</h4>
+				<SyntaxHighlighter language="javascript" style={a11yDark}>
+					{`function telephoneCheck(str) {
+  const regex = /^(1\s?)?(\(\d{3}\)|\d{3})[\s-]?\d{3}[\s-]?\d{4}$/;
+  return regex.test(str);
+}`}
+				</SyntaxHighlighter>
+			</div>
 		</>
 	)
 }
