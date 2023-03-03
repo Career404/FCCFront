@@ -520,13 +520,166 @@ function TelephoneNumberValidator() {
 function CashRegister() {
 	return (
 		<>
-			<p>Hello Cash Register </p>
+			<div className="glass"></div>
+			<div className="glass">
+				<h4>
+					<small>This is the </small>Task
+				</h4>
+				<p>
+					Design a cash register drawer{' '}
+					<code className="code">function checkCashRegister()</code> that
+					accepts purchase price as the first argument (
+					<code className="code">price</code>), payment as the second argument (
+					<code className="code">cash</code>), and cash-in-drawer (
+					<code className="code">cid</code>) as the third argument.
+					<br />
+					<br />
+					<code className="code">cid</code> is a 2D array listing available
+					currency.
+					<br />
+					<br />
+					The <code className="code">checkCashRegister()</code> function should
+					always return an object with a status key and a change key.
+					<br />
+					<br />
+					Return{' '}
+					<code className="code">
+						{'{'}status: "INSUFFICIENT_FUNDS", change: []{'}'}
+					</code>{' '}
+					if cash-in-drawer is less than the change due, or if you cannot return
+					the exact change.
+					<br />
+					<br />
+					Return{' '}
+					<code className="code">
+						{'{'}status: "CLOSED", change: [...]{'}'}
+					</code>{' '}
+					with cash-in-drawer as the value for the key change if it is equal to
+					the change due.
+					<br />
+					<br />
+					Otherwise, return{' '}
+					<code className="code">
+						{'{'}status: "OPEN", change: [...]{'}'}
+					</code>
+					, with the change due in coins and bills, sorted in highest to lowest
+					order, as the value of the change key.
+					<br />
+					<br />
+				</p>
+				<table className="currencyTable">
+					<thead>
+						<tr>
+							<th>Currency Unit</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Penny</td>
+							<td>$0.01 (PENNY)</td>
+						</tr>
+						<tr>
+							<td>Nickel</td>
+							<td>$0.05 (NICKEL)</td>
+						</tr>
+						<tr>
+							<td>Dime</td>
+							<td>$0.1 (DIME)</td>
+						</tr>
+						<tr>
+							<td>Quarter</td>
+							<td>$0.25 (QUARTER)</td>
+						</tr>
+						<tr>
+							<td>Dollar</td>
+							<td>$1 (ONE)</td>
+						</tr>
+						<tr>
+							<td>Five Dollars</td>
+							<td>$5 (FIVE)</td>
+						</tr>
+						<tr>
+							<td>Ten Dollars</td>
+							<td>$10 (TEN)</td>
+						</tr>
+						<tr>
+							<td>Twenty Dollars</td>
+							<td>$20 (TWENTY)</td>
+						</tr>
+						<tr>
+							<td>One-hundred Dollars</td>
+							<td>$100 (ONE HUNDRED)</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					<br />
+					See below for an example of a cash-in-drawer array:
+					<br /> <br />
+				</p>
+				<pre>
+					[ ["PENNY", 1.01],
+					<br /> ["NICKEL", 2.05],
+					<br /> ["DIME", 3.1],
+					<br /> ["QUARTER", 4.25],
+					<br /> ["ONE", 90],
+					<br /> ["FIVE", 55],
+					<br /> ["TEN", 20],
+					<br /> ["TWENTY", 60],
+					<br /> ["ONE HUNDRED", 100] ]
+				</pre>
+			</div>
+			<div className="glass">
+				<h4>
+					<small>This is the </small>solution
+				</h4>
+				<SyntaxHighlighter language="javascript" style={a11yDark}>
+					{`function checkCashRegister(price, cash, cid) {
+  let change = cash - price;
+  let result = [];
+  let unit = {
+    "PENNY": 0.01,
+    "NICKEL": 0.05,
+    "DIME": 0.1,
+    "QUARTER": 0.25,
+    "ONE": 1,
+    "FIVE": 5,
+    "TEN": 10,
+    "TWENTY": 20,
+    "ONE HUNDRED": 100
+  };
+  let totalInDrawer = cid.reduce((acc, current) => acc + current[1], 0);
+  if (totalInDrawer < change) {
+    return {status: "INSUFFICIENT_FUNDS", change: []};
+  }
+  if (totalInDrawer === change) {
+    return {status: "CLOSED", change: cid};
+  }
+  for (let i = cid.length - 1; i >= 0; i--) {
+    let currencyName = cid[i][0];
+    let currencyUnit = unit[currencyName];
+    let currencyAmount = cid[i][1];
+    if (change >= currencyUnit && currencyAmount > 0) {
+      let needed = Math.min(Math.floor(change / currencyUnit) * currencyUnit, currencyAmount);
+      change -= needed;
+      change = Math.round(change * 100) / 100;
+      result.push([currencyName, needed]);
+    }
+  }
+  if (change > 0) {
+    return {status: "INSUFFICIENT_FUNDS", change: []};
+  }
+  return {status: "OPEN", change: result};
+}`}
+				</SyntaxHighlighter>
+			</div>
 		</>
 	)
 }
 
 function JSProjects() {
-	const [currentWindow, setCurrentWindow] = useState('introduction') //introduction
+	const [currentWindow, setCurrentWindow] = useState('CashRegister') //introduction
 	return (
 		<>
 			<nav className="Navbar">

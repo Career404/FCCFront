@@ -154,6 +154,29 @@ main.Main .darkNumInput {
 	line-height: 70px;
 }
 
+main.Main .code {
+	background-color: black;
+}
+main.Main .currencyTable {
+	min-width: 250px;
+	width: 30%;
+	border-collapse: collapse;
+	border: none;
+}
+main.Main .currencyTable td,
+main.Main .currencyTable th {
+	border: none;
+	padding: 5px;
+	text-align: left;
+}
+main.Main .currencyTable td:first-child,
+main.Main .currencyTable th:first-child {
+	border-right: 1px solid white;
+}
+main.Main .currencyTable thead {
+	background-color: black;
+}
+
 @media only screen and (max-width: 767px) {
 	nav.Navbar {
 		gap: 10px;
