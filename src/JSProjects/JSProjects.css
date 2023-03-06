@@ -159,7 +159,6 @@ main.Main .code {
 }
 main.Main .currencyTable {
 	min-width: 250px;
-	width: 30%;
 	border-collapse: collapse;
 	border: none;
 }
