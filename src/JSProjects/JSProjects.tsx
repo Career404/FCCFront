@@ -5,6 +5,7 @@ import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript'
 import a11yDark from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark'
 
+import CashMachine from './CashMachine'
 import './JSProjects.css'
 
 SyntaxHighlighter.registerLanguage('javascript', js)
@@ -520,7 +521,9 @@ function TelephoneNumberValidator() {
 function CashRegister() {
 	return (
 		<>
-			<div className="glass"></div>
+			<div className="glass">
+				<CashMachine />
+			</div>
 			<div className="glass">
 				<h4>
 					<small>This is the </small>Task
