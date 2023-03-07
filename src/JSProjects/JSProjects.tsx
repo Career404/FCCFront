@@ -66,28 +66,39 @@ function PalindromeChecker() {
 	return (
 		<>
 			<div className="glass">
-				<input
-					className="darkTextInput"
-					type="text"
-					value={currentString}
-					onChange={(e) => {
-						setCurrentString(e.target.value)
+				<p
+					style={{
+						display: 'flex',
+						justifyContent: 'space-between',
+						alignItems: 'center',
+						gap: '10px',
 					}}
-				/>{' '}
-				<FaRandom
-					style={{ cursor: 'pointer' }}
-					size={'30px'}
-					onClick={() =>
-						setCurrentString(
-							palindromeList[Math.floor(Math.random() * palindromeList.length)]
-						)
-					}
-				/>{' '}
-				<FaAsterisk
-					style={{ cursor: 'pointer' }}
-					size={'30px'}
-					onClick={() => setCurrentString(randomString())}
-				/>
+				>
+					<input
+						className="darkTextInput"
+						type="text"
+						value={currentString}
+						onChange={(e) => {
+							setCurrentString(e.target.value)
+						}}
+					/>{' '}
+					<FaRandom
+						style={{ cursor: 'pointer' }}
+						size={'30px'}
+						onClick={() =>
+							setCurrentString(
+								palindromeList[
+									Math.floor(Math.random() * palindromeList.length)
+								]
+							)
+						}
+					/>{' '}
+					<FaAsterisk
+						style={{ cursor: 'pointer' }}
+						size={'30px'}
+						onClick={() => setCurrentString(randomString())}
+					/>
+				</p>
 				<br />
 				{currentString !== null ? (
 					<h3>{checkPalindrome(currentString)}</h3>
@@ -682,7 +693,7 @@ function CashRegister() {
 }
 
 function JSProjects() {
-	const [currentWindow, setCurrentWindow] = useState('CashRegister') //introduction
+	const [currentWindow, setCurrentWindow] = useState('introduction') //introduction
 	return (
 		<>
 			<nav className="Navbar">
@@ -695,6 +706,7 @@ function JSProjects() {
 						<select
 							className="slct"
 							onChange={(e) => setCurrentWindow(e.target.value)}
+							value={currentWindow}
 						>
 							<option value="introduction">Hello, friend</option>
 							<option value="PalindromeChecker">Palindrome Checker</option>
