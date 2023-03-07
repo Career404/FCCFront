@@ -12,6 +12,9 @@
 	justify-content: space-around;
 	gap: 1rem;
 }
+.item {
+	font-size: 20px;
+}
 .goods__item {
 	max-width: 450px;
 	display: flex;
@@ -28,4 +31,16 @@
 	display: flex;
 	justify-content: space-between;
 	cursor: url('https://cdn-icons-png.flaticon.com/32/5703/5703835.png'), pointer;
+}
+.checkout__money {
+	display: flex;
+	justify-content: space-between;
+}
+.checkout__button {
+	margin: 5px;
+	height: 1.5rem;
+	border: none;
+	border-radius: 6px;
+	color: black;
+	font-size: 1.2rem;
 }

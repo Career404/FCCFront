@@ -80,6 +80,16 @@ const goods = [
 		name: 'Lettuce (0.20 head)',
 		price: 0.39,
 	},
+	{
+		id: 14,
+		name: 'Gas (10 gallons)',
+		price: 45.2,
+	},
+	{
+		id: 15,
+		name: 'Xbox one x',
+		price: 659,
+	},
 ]
 export default function CashMachine() {
 	const [cart, setCart] = useState<CartItem[]>([])
@@ -126,17 +136,121 @@ export default function CashMachine() {
 		}
 	}
 
-	const [cid, setCid] = useState([
-		['PENNY', 1.01],
-		['NICKEL', 2.05],
-		['DIME', 3.1],
-		['QUARTER', 4.25],
-		['ONE', 90],
-		['FIVE', 55],
-		['TEN', 20],
-		['TWENTY', 60],
-		['ONE HUNDRED', 100],
+	const [cid, setCid] = useState<
+		[unitName: string, current: number, unitCost: number][]
+	>([
+		['PENNY', 1.01, 0.01],
+		['NICKEL', 2.05, 0.05],
+		['DIME', 3.1, 0.1],
+		['QUARTER', 4.25, 0.25],
+		['ONE', 90, 1],
+		['FIVE', 55, 5],
+		['TEN', 20, 10],
+		['TWENTY', 60, 20],
+		['ONE HUNDRED', 100, 100],
 	])
+	const [payWith, setPayWith] = useState<
+		[unitName: string, current: number, unitCost: number][]
+	>([
+		['PENNY', 0, 0.01],
+		['NICKEL', 0, 0.05],
+		['DIME', 0, 0.1],
+		['QUARTER', 0, 0.25],
+		['ONE', 0, 1],
+		['FIVE', 0, 5],
+		['TEN', 0, 10],
+		['TWENTY', 0, 20],
+		['ONE HUNDRED', 0, 100],
+	])
+
+	let totalInDrawer = cid
+		.reduce((acc, current) => acc + Number(current[1]), 0)
+		.toFixed(2)
+
+	let totalPayment = payWith
+		.reduce((acc, current) => acc + Number(current[1]), 0)
+		.toFixed(2)
+
+	function handleAddUnit(unit: string) {
+		setPayWith(
+			payWith.map((item) => {
+				return item[0] === unit
+					? [item[0], Number((item[1] += item[2]).toFixed(2)), item[2]]
+					: item
+			})
+		)
+	}
+	function removeSingleUnit(unit: string) {
+		setPayWith(
+			payWith.map((item) => {
+				return item[0] === unit && item[1] > 0
+					? [item[0], Number((item[1] -= item[2]).toFixed(2)), item[2]]
+					: item
+			})
+		)
+	}
+	const [transactionResult, setTransactionResult] = useState<{
+		status: string
+		change: any[] | null
+	} | null>(null)
+
+	function checkCashRegister() {
+		//'God' function
+		let change = Number(totalPayment) - total
+		//check if given cash less than price
+		if (Number(totalPayment) < total) {
+			setTransactionResult({
+				status: 'Not enough money for transaction',
+				change: null,
+			})
+			return
+		}
+		//check if cash is way over the price
+		if (change > 100) {
+			setTransactionResult({
+				status: 'Please use recalculate the payment',
+				change: null,
+			})
+			return
+		}
+		//check if not enough money in cash machine
+		if (Number(totalInDrawer) < change) {
+			setTransactionResult({
+				status: 'INSUFFICIENT FUNDS - not enough change in cash drawer',
+				change: null,
+			})
+			return
+		}
+		//Add recieved cash to drawer:
+		let tempCid: [unitName: string, current: number, unitCost: number][] =
+			cid.map((item, index) => [item[0], item[1] + payWith[index][1], item[2]])
+
+		//calculate the needed change
+		let result: any[] = []
+		for (let i = cid.length - 1; i >= 0; i--) {
+			let currencyName = cid[i][0]
+			let currencyUnit = cid[i][2]
+			let currencyAmount = cid[i][1]
+			if (change >= currencyUnit && currencyAmount > 0) {
+				let needed = Math.min(
+					Math.floor(change / currencyUnit) * currencyUnit,
+					currencyAmount
+				)
+				change -= needed
+				change = Math.round(change * 100) / 100
+				result.push([currencyName, needed])
+			}
+		}
+		//take change from the drawer:
+		tempCid = tempCid.map((item, index) =>
+			item[0] === result[0]
+				? [item[0], item[1] - result[index][1], item[2]]
+				: item
+		)
+		setCid(tempCid)
+		setTransactionResult({ status: 'OPEN', change: result })
+		return
+	}
 
 	return (
 		<>
@@ -147,7 +261,7 @@ export default function CashMachine() {
 						{goods.map((good) => (
 							<div
 								key={good.name}
-								className="goods__item"
+								className="goods__item item"
 								onClick={() => handleAddItem(good)}
 							>
 								<p>{good.name}</p>
@@ -159,29 +273,122 @@ export default function CashMachine() {
 						<p>
 							<FaShoppingCart />
 							{'   '}
-							Remove items by clicking on them
+							Remove items by clicking on them, or{' '}
+							<button onClick={() => setCart([])} style={{ color: 'black' }}>
+								Remove all
+							</button>
 						</p>{' '}
 						<br />
-						<p>
+						<div>
 							{cart?.length !== 0
 								? Object.values(cart).map((item) => (
 										<p
 											key={item.name}
-											className="cart__item"
+											className="cart__item item"
 											onClick={() => handleRemoveItem(item)}
 										>
 											{item.name}, <span>{item.quantity}</span>
 										</p>
 								  ))
 								: null}
-						</p>{' '}
+						</div>
 						<br />
-						<p>Total price: ${total.toFixed(2)}</p>
 					</div>
 				</div>
 				<div className="checkout">
-					<button className="checkout__button">Checkout</button>
+					<div className="checkout__money">
+						<p>
+							Total price:{' '}
+							<span style={{ fontSize: '22px' }}>${total.toFixed(2)}</span>
+						</p>{' '}
+						<p>
+							{' '}
+							Cash machine balance: <span>{totalInDrawer} $</span>
+						</p>{' '}
+					</div>
+					<br />
+					<div>
+						<p>
+							Pay with{' '}
+							<span style={{ fontSize: '22px' }}>{totalPayment} $ </span>
+						</p>{' '}
+						<hr />
+						<p>
+							<button
+								style={{ color: 'black' }}
+								onClick={() =>
+									setPayWith([
+										['PENNY', 0, 0.01],
+										['NICKEL', 0, 0.05],
+										['DIME', 0, 0.1],
+										['QUARTER', 0, 0.25],
+										['ONE', 0, 1],
+										['FIVE', 0, 5],
+										['TEN', 0, 10],
+										['TWENTY', 0, 20],
+										['ONE HUNDRED', 0, 100],
+									])
+								}
+							>
+								Reset all
+							</button>
+							...or right-click on each button to remove the units one by one
+						</p>
+						{payWith.map((cash) => (
+							<button
+								key={cash[0]}
+								onClick={() => handleAddUnit(cash[0] as string)}
+								onContextMenu={(e) => {
+									e.preventDefault()
+									removeSingleUnit(cash[0] as string)
+								}}
+								style={{ color: 'black', fontSize: '16px' }}
+							>
+								{cash[0]}
+								{cash[1] !== 0 ? (
+									<b style={{ color: 'black' }}>
+										{' '}
+										- currently {cash[1].toFixed(2)} $
+									</b>
+								) : null}
+							</button>
+						))}{' '}
+					</div>
+					<br />
+					<button
+						className="checkout__button"
+						onClick={() => checkCashRegister()}
+					>
+						Checkout
+					</button>
 				</div>
+				{transactionResult ? (
+					<div>
+						<p>Cash register: {transactionResult.status}</p>
+						{transactionResult.change ? (
+							<p>
+								Your change: <br />
+								{transactionResult.change.map((unit) =>
+									unit.length > 0 ? (
+										<span key={unit[0]}>
+											{unit[0]} -{' '}
+											<span style={{ fontSize: '22px' }}>{unit[1]}$ </span>
+											<br />
+										</span>
+									) : null
+								)}
+								<br />
+								total:{' '}
+								<span style={{ fontSize: '22px' }}>
+									{transactionResult.change
+										.reduce((acc, current) => acc + current[1], 0)
+										.toFixed(2)}{' '}
+									$
+								</span>
+							</p>
+						) : null}
+					</div>
+				) : null}
 			</div>
 		</>
 	)
