@@ -1,11 +1,10 @@
-import './App.css'
+import './App.css';
 
 function App() {
 	return (
 		<div className="App">
-			<a href="/">
-				<h1 style={{ marginBottom: '1em' }}>Take a look at these pages:</h1>
-			</a>
+			<h1 style={{ marginBottom: '1em' }}>Take a look at these pages:</h1>
+
 			<h2>(New) Responsive web design</h2>
 			<p>These are non-representative aka done with minimal effort. Sorry.</p>
 			<div className="links">
@@ -44,8 +43,12 @@ function App() {
 				<a href="src/pomodoro/">25 and 5 clock</a>{' '}
 				<a href="https://25--5-clock.freecodecamp.rocks/">FCC example</a>
 			</div>
+			<div className="links">
+				<a href="src/MDPreview/">Markdown Previewer</a>{' '}
+				<a href="https://markdown-previewer.freecodecamp.rocks/">FCC example</a>
+			</div>
 		</div>
-	)
+	);
 }
 
-export default App
+export default App;
